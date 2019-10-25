@@ -8,6 +8,8 @@ urlpatterns=[
     url(r'^submit/$',views.submit,name = 'submit'),
     url(r'^profile/$',views.profile,name = 'profile'),
     url(r'^profile_display/$', views.profile_display, name='profile_display'),
+    url(r'^project/$', views.project, name='project'),
+    
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

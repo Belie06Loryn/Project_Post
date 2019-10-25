@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import ProfileForm
+from .forms import ProfileForm,FotoForm
 from .models import Profile,Foto
 
 
@@ -33,3 +33,17 @@ def profile_display(request):
    print(profile)
    images=Foto.objects.filter(profile_id=current_user)
    return render(request, 'all-projects/post.html', {"images":images,"profile":profile})
+
+@login_required(login_url='/accounts/login/')
+def project(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = FotoForm(request.POST,request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.user= current_user
+            project.save()
+        return redirect('profile_display')
+    else:
+        form =FotoForm()
+    return render(request, 'all-projects/project.html', {"form": form})    
