@@ -1,0 +1,63 @@
+{% extends 'all-posts/base.html' %}
+{% load bootstrap4 %}
+ {% load staticfiles %}
+ {% block content %}
+ <!DOCTYPE html>
+ <html>
+ 
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+   <title>New Post</title>
+   {{form.media}}
+ 
+ {% block styles %} {% bootstrap_css %}
+   <link rel="stylesheet" href="{% static 'css/insta.css' %}">
+   <link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet"> {% endblock %}
+ 
+ </head>
+<style>
+  .hr{ 
+      display: block;
+      margin-left:200px;
+      margin-right: 200px;
+      border-style: inset;
+      border-width: 1px;
+  } 
+  footer{
+      /* position: fixed; */
+      background-color:transparent;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      color:rgb(8, 8, 8);
+      text-align: center;
+      font-size: 10px;
+  }
+</style>
+<body>
+  <div class="row">
+    <div class="col-md-4"><img src="/static/images/akrales_180614_1777_0229.0.webp"style="width:80%;margin-left:20px;height:70%;"></div>
+    <div class="col-md-4"><form  action="{% url 'post'%}" method="post" enctype="multipart/form-data">
+      {%csrf_token%}
+  
+      {% bootstrap_form form%}
+      <input type="submit" class="btn btn-success btn-lg" value="Post">
+    </form>
+  
+     {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {% bootstrap_javascript %} {% endblock %}</div>
+  </div>
+<div class="col-md-4"></div>
+<br><br>
+<div>
+    <footer>
+        <hr class="hr">
+        <p>@2019 by ____ProDevloper.Proudly Created</p>
+    </footer>
+</div>  
+</body>
+</html>
+{% endblock %}

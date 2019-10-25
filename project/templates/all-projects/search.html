@@ -1,0 +1,48 @@
+{%extends 'all-posts/base.html'%} 
+{% block content %}
+<style>
+.hr{ 
+    display: block;
+    margin-left:200px;
+    margin-right: 200px;
+    border-style: inset;
+    border-width: 1px;
+  } 
+  footer {
+    /* position: fixed; */
+    background-color:transparent;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color:rgb(8, 8, 8);
+    text-align: center;
+    font-size: 10px;
+  }
+</style>
+<div class="container"><br><br>
+    <div class="row">
+      {% if user %}
+      {% for user in user %}
+      <div class="col-md-4">
+            <div class="media">
+                    <img src="{{ user.image.url }}" class="rounded-circle profile-img" style="width: 80px;height: 80px;">
+                    <div class="media-body">
+                        <div class="ml-custom">
+                        <div class="display">
+                        <p class="custom-fontsize">{{ user.username }}</p>
+                        <p class="text-secondary"> Email: {{ user.email }}</p>
+                        <p class="text-secondary">Bio: {{ user.bio }}</p>
+                    </div>
+                    </div>
+                </div></div>
+      </div>
+  {% endfor %}
+  {% endif %}
+</div></div><br><br><br><br><br>
+<div>
+    <footer>
+        <hr class="hr">
+        <p>@2019 by ____ProDevloper.Proudly Created</p>
+    </footer>
+</div>
+{% endblock %} 

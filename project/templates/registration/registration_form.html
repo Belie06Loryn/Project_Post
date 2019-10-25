@@ -1,0 +1,71 @@
+{%extends "registration/base.html"%}
+{% load bootstrap4 %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
+<style>
+.hr{ 
+  display: block;
+  margin-left:200px;
+  margin-right: 200px;
+  border-style: inset;
+  border-width: 1px;
+} 
+footer{
+  /* position: fixed; */
+  background-color:transparent;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color:rgb(8, 8, 8);
+  text-align: center;
+  font-size: 10px;
+}
+</style>
+<body>
+<div class="container">
+  <div class="row">
+    <!-- Empty div -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6" style="border-style: ridge; margin-top: 10px;background-color:whitesmoke;">
+      {% if form.errors %}
+        <p> Some Information Might be Incorrect </p>
+      {% endif %}
+      <div class="panel panel-def" >
+
+        <div class="panel-heading">
+          <p class="text-center" ><strong>Register</strong>    Are you a member? <span><a href="/accounts/login/" style="color: aqua;">Login now</a></span></p>
+        </div>
+        <div class="panel-body">
+
+          <form  action="/accounts/register/" method="post" style="color:black;">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <div class="form-group">
+              <input type="submit" style="background-color: aqua; text-align: center;" value="Sign Up">
+            </div>
+
+            <input type="hidden" name="next" value="{{next}}">
+
+          </form>
+
+        </div>
+
+      </div>
+      
+    </div>
+    <!-- empty div -->
+    <div class="col-md-3"></div>
+  </div>
+</div><br><br><br>
+<div>
+    <footer>
+        <hr class="hr">
+        <p>@2019 by ____ProDevloper.Proudly Created</p>
+    </footer>
+</div>
+</body>
+</html>
+{% endblock %}

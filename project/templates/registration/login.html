@@ -1,0 +1,72 @@
+{%extends "registration/base.html"%}
+{% load bootstrap4 %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
+<style>
+.hr{ 
+  display: block;
+  margin-left:200px;
+  margin-right: 200px;
+  border-style: inset;
+  border-width: 1px;
+} 
+footer{
+  /* position: fixed; */
+  background-color:transparent;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color:rgb(8, 8, 8);
+  text-align: center;
+  font-size: 10px;
+}
+</style>
+<body>
+<div class="container">
+  <div class="row">
+    <!-- Empty div -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6" style="border-style: ridge; margin-top: 130px; background-color:whitesmoke;">
+      {% if form.errors %}
+        <p> Password or Username is incorrect </p>
+      {% endif %}
+      <div class="panel panel-default" >
+
+        <div class="panel-heading">
+          <p class="text-center" ><strong>Sign in to continue</strong>    Not a member yet? <span><a href="/accounts/register/" style="color: aqua;">Register now</a></span></p>
+        </div><br>
+        <div class="panel-body">
+
+          <form  action="/accounts/login/" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form%}
+
+            <div class="form-group">
+              <input type="submit" style="background-color: aqua; text-align: center;" value="Login">
+            </div>
+
+            <input type="hidden" name="next" value="{%url 'page'%}">
+
+          </form>
+
+        </div>
+        <div >
+        <p style="text-align: center;"><a href="/accounts/password/change" style="color: aqua;"> Forgot your Password</a></p>
+        </div>
+      </div> </div>
+    <!-- empty div -->
+    <div class="col-md-3"></div>
+  </div>
+</div><br><br><br>
+<div>
+    <footer>
+        <hr class="hr">
+        <p>@2019 by ____ProDevloper.Proudly Created</p>
+    </footer>
+</div>
+</body>
+</html>
+{% endblock %}

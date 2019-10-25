@@ -1,0 +1,90 @@
+{% extends 'all-projects/base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+     $(function () {
+      $(".like").click(function () {
+          var input = $(this).find('.likes');
+          input.val(parseInt(input.val())+ 1);
+      });
+    });
+</script>
+<style>
+
+.like, .dislike {    
+  cursor: pointer;
+}
+.hr{ 
+    display: block;
+    margin-left:200px;
+    margin-right: 200px;
+    border-style: inset;
+    border-width: 1px;
+} 
+footer{
+    /* position: fixed; */
+    background-color:transparent;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color:rgb(8, 8, 8);
+    text-align: center;
+    font-size: 10px;
+}
+</style>
+<body>
+<div class="container">
+    <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-6">
+        {% for fotos in fotos %}
+        <div class="card">
+        <div class="card-heading">
+            <div class="placing">
+            <a href="{% url 'ownerprofile' %}"><img src="{{ fotos.image.url }}"
+                alt="profile picture" style="width: 100%;"></a><br>
+            <a class="ml-3"><i class="fa fa-comment-o" aria-hidden="true"></i></a>
+            <a class="like">
+                    <i class="fa fa-heart"></i>
+                    <input class="likes" name="like" readonly="readonly" type="text" value="0"/>
+                </a>
+            <p class="ml-3"> {{ fotos.caption }} </p><hr>
+            <div class="form-group">
+                <input type="text" class="ml-3 form-control" id="comment" style="width: 80%;"><span><button class="ml-3 btn btn-primary mb-2">Post</button></span>
+                
+            </div>
+            </div>
+        </div></div><br><br>    
+        {% endfor %}
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+            {% for profile in profile %}
+            <div class="media">
+                <img src="{{ profile.image.url }}" class="rounded-circle profile-img" style="width: 80px;height: 80px;">
+                <div class="media-body">
+                    <div class="ml-custom">
+                    <div class="display">
+                    <p class="custom-fontsize">{{ user.username }}</p>
+                </div>
+                </div>
+                </div>
+            </div>{% endfor %}
+    </div>
+</div></div>
+<br><br><br>
+<div>
+    <footer>
+        <hr class="hr">
+        <p>@2019 by ____ProDevloper.Proudly Created</p>
+    </footer>
+</div>   
+</body>
+
+{% endblock %}
+</html>
