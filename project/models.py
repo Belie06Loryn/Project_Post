@@ -33,3 +33,31 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.bio   
+
+class Foto(models.Model):
+    image = models.ImageField(upload_to = 'photos/',null=True)
+    sitename = models.CharField(max_length =40)
+    url = models.CharField(max_length =40)
+    description = models.CharField(max_length =6000)
+    category = models.CharField(max_length =6000)
+    tags = models.CharField(max_length =6000)
+    technology = models.CharField(max_length =6000)
+    profile = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+    designer = models.CharField(max_length =6000)
+    author = models.CharField(max_length =6000)
+     
+    def save_pic(self):
+        self.save()
+
+    def dele_pic(self):
+        self.delete() 
+
+    @classmethod
+    def image_by_id(cls,id):
+        found = cls.objects.filter(id = id)
+        return found
+
+    @classmethod
+    def update_pic(cls,id):
+        imaje = cls.objects.filter(id=id).update(id=id)
+        return imaje          
