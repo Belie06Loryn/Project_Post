@@ -8,9 +8,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<style type="text/css">
-    .bs-example{
-        margin: 20px;
+<script>
+// SideNav Initialization
+$(".button-collapse").sideNav();
+
+new WOW().init();
+</script>
+<style>
+    #cool:hover{
+        background-color: rgb(3, 233, 233);
     }
 </style>
 </head>
@@ -20,13 +26,17 @@
       <a href="https://www.instagram.com/awwwards/" style="color: black;"><i class="fa fa-instagram" aria-hidden="true"></i></i></a>
       <a href="https://twitter.com/awwwards/" style="color: black;"><i class="fa fa-twitter" aria-hidden="true"></i></i></a>
       <a href="https://www.facebook.com/awwwards/" style="color: black;"><i class="fa fa-facebook" aria-hidden="true"></i></a></span></p>      
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a href="#" class="navbar-brand">Brand</a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+          <!-- Sidebar navigation -->
+          <div id="slide-out" class="side-nav sn-bg-4 fixed">
+              <div class="sidenav-bg mask-strong"></div>
+            </div>
+            <!--/. Sidebar navigation -->
+      <nav class="navbar navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav navbar-light bg-light">
+          <div class="float-left">
+              <a href="#" data-activates="slide-out" class="button-collapse" style="color: black;"><i class="fa fa-bars" aria-hidden="true"></i>  MENU</a>
+            </div>
 
-        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse" style="margin-left: 5px;">
             <div class="navbar-nav">
                 <form class="form-inline">
                 <div class="input-group">                    
@@ -39,8 +49,8 @@
             </div>                   
                  <a href="{%url 'page'%}" class="navbar-brand">awwwards.</a>
             <div class="navbar-nav">
-                <a href="/accounts/register/" class="nav-item nav-link">Register/Login</a>
-                <a href="#" class="nav-item nav-link"><label type="button" class="btn-group mb-2 btn-group-lg" style="background-color:green;color:white;">Submit Your Site!</label></a>
+                <a href="/accounts/login/" class="nav-item nav-link">Register/Login</a>
+                <a href="#" class="nav-item nav-link " id="cool" style="background-color:aqua;color:white;">Submit Your Site!</a>
             </div>
         </div>
     </nav>

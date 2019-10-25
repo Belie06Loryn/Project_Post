@@ -36,7 +36,7 @@ footer{
       <div class="panel panel-def" >
 
         <div class="panel-heading">
-          <p class="text-center" ><strong>Register</strong>    Are you a member? <span><a href="/accounts/login/" style="color: aqua;">Login now</a></span></p>
+          <p class="text-center" ><strong>Register</strong>    Are you a member? <span><a href="/accounts/login/" style="color: rgb(83, 45, 252);">Login now</a></span></p>
         </div>
         <div class="panel-body">
 
@@ -44,7 +44,7 @@ footer{
             {% csrf_token %}
             {% bootstrap_form form %}
             <div class="form-group">
-              <input type="submit" style="background-color: aqua; text-align: center;" value="Sign Up">
+              <input type="submit" class="btn btn-primary btn-lg"style="text-align: center;" value="Sign Up">
             </div>
 
             <input type="hidden" name="next" value="{{next}}">
