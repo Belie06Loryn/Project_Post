@@ -7,7 +7,9 @@ from .models import Profile,Foto
 
 
 def page(request):
-    return render(request,'all-projects/index.html',{})
+    images=Foto.objects.all()
+    profile=Profile.objects.all()
+    return render(request,'all-projects/index.html',{'images':images,'profile':profile})
 
 def submit(request):
     return render(request,'all-projects/submit.html',{})    
