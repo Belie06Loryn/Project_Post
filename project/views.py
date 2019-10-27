@@ -49,3 +49,8 @@ def project(request):
     else:
         form =FotoForm()
     return render(request, 'all-projects/project.html', {"form": form})    
+
+@login_required(login_url='/accounts/login/')
+def profile_vote(request):
+   images=Foto.objects.filter(id=id).first()
+   return render(request, 'all-projects/projectvote.html', {"images":images})    
