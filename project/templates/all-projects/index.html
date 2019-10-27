@@ -6,8 +6,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#imag1").mouseover(function(){
+    $("#imaje1").show();
+  });
+  $("#imag1").mouseout(function(){
+    $("#imaje1").hide();
+  });
+});
+</script>
 <style>
-    .profile{
+.imag{
+    height: 200px;
+    width: 280px;
+    position: relative;
+}
+#imaje1 {
+    display: none;
+    border: 1px solid white ;
+    position: absolute;
+    bottom: 10px;
+    margin-left: 5px;
+    right: 0px;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+    height: 200px;
+    width: 280px;
+    text-align: center;
+}
+::placeholder {
+    color: rgb(0, 0, 0);
+}
+.profile{
    border-radius: 30px;
    width: 30px;
    height: 30px;
@@ -35,12 +67,14 @@ footer{
     <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-4">
+</div>
         {% for fotos in images %}
         <div class="card">
         <div class="card-heading">
-            <div class="placing">
+            <div class="placing" id="imag1">
             <a><img src="{{ fotos.image.url }}"
-                alt="profile picture" style="width: 100%;"></a>
+                alt="profile picture"  class="imag"></a>
+            <p id="imaje1"><a href="" ><br><br><br> <button class="btn btn-primary">View</button></a></p>
         <br><p><strong>{{fotos.sitename}}</strong></p>
         <p><strong>BY {{fotos.author}}</strong></p>
             </div>
