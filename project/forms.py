@@ -1,4 +1,4 @@
-from .models import Profile,Foto
+from .models import Profile,Foto,Voting
 from django import forms
         
 class ProfileForm(forms.ModelForm):
@@ -9,4 +9,9 @@ class ProfileForm(forms.ModelForm):
 class FotoForm(forms.ModelForm):
   class Meta:
     model = Foto
-    fields = ['image','sitename','url','description','category','tags','technology','profile','designer','author'] 
+    fields = ['image','sitename','url','description','technology','profile','profiles','author'] 
+
+class VotingForm(forms.ModelForm):
+  class Meta:
+    model = Voting
+    fields = ["design","usability","content"]    

@@ -39,11 +39,9 @@ class Foto(models.Model):
     sitename = models.CharField(max_length =40)
     url = models.CharField(max_length =40)
     description = models.CharField(max_length =6000)
-    category = models.CharField(max_length =6000)
-    tags = models.CharField(max_length =6000)
     technology = models.CharField(max_length =6000)
+    profiles = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True)
     profile = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
-    designer = models.CharField(max_length =6000)
     author = models.CharField(max_length =6000)
      
     def save_pic(self):
@@ -61,3 +59,14 @@ class Foto(models.Model):
     def update_pic(cls,id):
         imaje = cls.objects.filter(id=id).update(id=id)
         return imaje          
+
+
+class Voting(models.Model):
+    design = models.IntegerField(choices=[(i,i) for i in range(1,11)])
+    usability = models.IntegerField(choices=[(i,i) for i in range(1,11)])
+    content = models.IntegerField(choices=[(i,i) for i in range(1,11)])
+    project = models.ForeignKey(Foto,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE) 
+
+    def __str__(self):
+        return f'{self.user.username} {self.project.sitename} Rating'

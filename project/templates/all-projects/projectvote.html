@@ -8,12 +8,88 @@
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
  </head>
+ <script>
+ $(function() {
+    $('.chart').easyPieChart({
+    });
+});
+
+$(document).ready(function(){
+
+    var project_id = $("#project_id").val()
+
+    $('#ratingform').submit(function(event){
+
+        event.preventDefault()
+        form = $("#ratingform")
+
+        $.ajax({
+            'url' : '/ajax/rate/'+ project_id,
+            'type': 'POST',
+            'data': form.serialize(),
+            'dataType': 'json',
+        })
+        .done(function(data){
+            if (data.user){
+                console.table(data);
+                alert(data.success);
+                var html = "<tr>";
+                html += "<th>" + 0 + "</th>";
+                html += "<td>" + "your new rating" + "</td>";
+                html += "<td>" + data.design + "</td>";
+                html += "<td>" + data.usability + "</td>";
+                html += "<td>" + data.content + "</td></tr>";
+
+                $(".t-data").append(html);
+
+            } else {
+                alert(data.success)
+                $(".rate"+data.uid+" .t-design").text(data.design)
+                $(".rate"+data.uid+" .t-usability").text(data.usability)
+                $(".rate"+data.uid+" .t-content").text(data.content)
+
+            }
+            
+        }) 
+        $("#id_design").val('')
+        $("#id_usability").val('')
+        $("#id_content").val('')
+    })
+
+})
+ </script>
 <style>
-  .profile{
-   border-radius: 700px;
-   width: 210px;
-   height: 200px;
- }
+  .spinners{
+    width: 1000px;
+    padding-top:250px;
+    padding-left:250px;
+}
+
+.spinners .box {
+    width: 25%;
+    float: left;
+}
+
+.spinners .box .chart {
+    /* position:relative; */
+    width: 110px;
+    height: 110px;
+    margin:0 auto;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    text-shadow: 1px 1px 12px rgb(255, 255, 255);
+    font-size: 30px;
+}
+#overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 60vh;
+    position: absolute;
+    top: 140px;
+    right: 80px;
+}
+#overla {
+    position:relative;
+}
   .hr{ 
       display: block;
       margin-left:200px;
@@ -32,98 +108,98 @@
   }
 </style>
 <body>
-        <div class="container">
-            <div class="view overlay">
-                <img src="{{images.image.url}}" width='100%' height='450vh'>
-                <div class="rates"></div>
-                <div class="mask flex-center rgba-black-light"></div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-3">
-                        <h3>Content</h3> <hr class="bg-default"> <br> <h4>{{content}}</h4>
-                </div>
-                <div class="col-md-3">
-                                <h3>Usability</h3> <hr class="bg-success"> <br> <h4>{{usability}}</h4>
-                </div>
-                <div class="col-md-3">
-                                <h3>Design</h3> <hr class="bg-info"> <br> <h4>{{design}}</h4>
-                </div>
-                <div class="col-md-3">
-                                <h3>Average</h3> <hr class="bg-danger"> <br> <h4>{{average}}</h4>
-                </div>  
-            </div>
-
-                {% if user.is_authenticated %}
-                <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#VotesForm">Rate</button>
-                <a href="{{images.url}}" class="btn btn-pink btn-md pull-right " target="_blank">LIVE SITE <i
-                        class="far fa-chevron-double-right"></i> </a>
-                {% if user.id not in auth %}
-                <br>
-               
-<div class="modal fade" id="VotesForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Vote</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-                <div class="form animated slideInDown">
-                                <form action="/projects/{{projects.id}}" method="POST">
-                                        {% csrf_token %}
-                                        {% bootstrap_form form %}
-                                        <button class="btn btn-outline-info modal-footer d-flex justify-content-center" type="submit">Submit <i class="fas fa-paper-plane-o ml-1"></i> </button>
-                                </form>
+    <div class="rating-page above">
+    <img id="overla" src="{{project.image.url}}" style="height: 300px; width: 60%; margin-left:270px">
+    <div id="overlay">
+        <div class="container-fluid">
+            <div class="container spinners">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="box">
+                            <div class="chart" data-percent="{{content_percent}}">Content {{ content_average }}</div>
                         </div>
-      </div>
- 
-      </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box">
+                            <div class="chart" data-percent="{{ usability_percent }}">Usability {{ usability_average }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box">
+                            <div class="chart" data-percent="{{ design_percent }}">Design {{ design_average }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-
-                {%else%}
-                <p class="alert alert-success">Thanks for your Votes</p>
-                {%endif %}
-                {% else %}
-                <a href="/accounts/login/" class="btn btn-outline-info ">Login to vote</a>
-                {% endif %}
-        </div>
-        <div class="card comments">
-                <div class="card-header">
-                        <h4> Total Votes: {{all|length}} </h4>
-                </div>
-                <div class="list-group">
-                        <ul class="list-group">
-                                {%if all%}
-                                <table id='comm' class="table">
-                                        <th>Voters</th>
-                                        <th>Rating</th>
-                                        {%for you in all%}<tr>
-                                                <td> <img src="{{you.user.profile.profile_photo.url}}" alt="" width='30px' height="30px">  {{you.user}}</td>
-                                                <td>
-                                                        <div class="design">
-                                                                <a href="" class="scores">{{you.design}}.0</a>
-                                                                <a href="">{{you.usability}}.0</a>
-                                                                <a class='b' href="">{{you.content}}.0</a>
-                                                        </div>
-                                                </td>
-                                                {%endfor%}
-                                </table>
-                                {%else%}
-                                <li class="list-group-item alert alert-info">No votes Available</li>
-                                {%endif%}
-                        </ul>
-                </div>
-        </div>
-        </div>
-        </div>
-        <div>
-                
+<br><br><br>
+<div class="container">
+<div class="row">
+    <div class="col-md-4" style="margin-left:10px;">
+            <h2>{{ project.sitename }}</h2><br>
+        
+            <h2 class="project-details-heading">Project Details</h2>
+            <p>{{ project.description }}</p><br>
+        
+            <h2 class="project-details-heading">Visit The Site</h2>
+            <a href="{{project.url}}"><button class="btn btn-primary">Visit Site</button></a><br>
+    </div>
+    <div class="col-md-3"></div>
+    <div class="col-md-4"><h2 class="project-details-heading">Rate this site</h2>
+        <hr>
+        <form action="" method="POST" enctype="multipart/form-data" id="ratingform">
+            {%csrf_token%}
+    
+            {% bootstrap_form form%}
+            <input type="hidden" value="{{ project.id }}" id="project_id">
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Submit Rating</button>
+            </div>
+        </form></div>
+        <div class="col-md-1"></div>
+</div>
+</div><br><br>
+<div class="container">
+    <h2 class="project-details-heading">Ratings</h2>
+    <hr>
+    <table class="table">
+        <thead class="bg-info">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">User</th>
+                <th scope="col">Design</th>
+                <th scope="col">Usability</th>
+                <th scope="col">Content</th>
+            </tr>
+        </thead>
+        <tbody class="t-data">
+            <tr>
+                <th scope="row">Average</th>
+                <td>All</td>
+                <td>{{ design_average }}</td>
+                <td>{{ usability_average }}</td>
+                <td>{{ content_average }}</td>
+            </tr>
+            {% if project_rating %}
+            {% for rating in project_rating %}
+            <tr class="rate{{rating.user.id}}">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td class="t-user"><img src="{{ rating.user.profile.profile_pic.url }}" alt="profile picture"
+                        class="rounded-circle custom-display border border-danger">{{ rating.user.username }}
+                </td>
+                <td class="t-design">{{ rating.design }}</td>
+                <td class="t-usability">{{ rating.usability }}</td>
+                <td class="t-content">{{ rating.content }}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+</div>               
 <br><br>
 <div>
     <footer>

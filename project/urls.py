@@ -9,7 +9,7 @@ urlpatterns=[
     url(r'^profile/$',views.profile,name = 'profile'),
     url(r'^profile_display/$', views.profile_display, name='profile_display'),
     url(r'^project/$', views.project, name='project'),
-    url(r'^profile_vote/$', views.profile_vote, name='profile_vote'),
+    url(r'^ProjectVote/(?P<pk>\d+)$',views.ProjectVote,name="ProjectVote"),
     
 ]
 if settings.DEBUG:

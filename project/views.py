@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import ProfileForm,FotoForm
-from .models import Profile,Foto
+from .forms import ProfileForm,FotoForm,VotingForm
+from .models import Profile,Foto,Voting
 
 
 def page(request):
@@ -51,6 +51,53 @@ def project(request):
     return render(request, 'all-projects/project.html', {"form": form})    
 
 @login_required(login_url='/accounts/login/')
-def profile_vote(request):
-   images=Foto.objects.filter(id=id).first()
-   return render(request, 'all-projects/projectvote.html', {"images":images})    
+def ProjectVote(request,pk):
+    project = Foto.objects.get(id=pk)
+    current_user = request.user
+    project_rating = Voting.objects.filter(project=project).order_by("pk")
+    current_user_id = request.user.id
+    project_rated = Voting.objects.filter(user=current_user_id)
+
+    design_mean_rating = []
+    for d_rating in project_rating:
+        design_mean_rating.append(d_rating.design)
+    try:
+        design_average = sum(design_mean_rating)/len(design_mean_rating)
+        design_percent = design_average * 10
+    except ZeroDivisionError:
+        design_average = "0"
+        design_percent = 0
+
+    usability_mean_rating = []
+    for u_rating in project_rating:
+        usability_mean_rating.append(u_rating.usability)
+    try:
+        usability_average = sum(usability_mean_rating)/len(usability_mean_rating)
+        usability_percent = usability_average *10
+    except ZeroDivisionError:
+        usability_average = "0"
+        usability_percent = 0
+    
+    content_mean_rating = []
+    for c_rating in project_rating:
+        content_mean_rating.append(c_rating.content)
+    try:
+        content_average = sum(content_mean_rating)/len(content_mean_rating)
+        content_percent = content_average * 10
+    except ZeroDivisionError:
+        content_average = "0"
+        content_percent = 0
+    form = VotingForm()
+
+    context = {
+        "project":project,
+        "form":form,
+        "project_rating":project_rating,
+        "design_average":design_average,
+        "content_average":content_average,
+        "usability_average":usability_average,
+        "usability_percent":usability_percent,
+        "content_percent":content_percent,
+        "design_percent":design_percent
+    }
+    return render(request, 'all-projects/projectvote.html', context)    
