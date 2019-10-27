@@ -10,6 +10,8 @@ urlpatterns=[
     url(r'^profile_display/$', views.profile_display, name='profile_display'),
     url(r'^project/$', views.project, name='project'),
     url(r'^ProjectVote/(?P<pk>\d+)$',views.ProjectVote,name="ProjectVote"),
+    url(r'^Vote/$',views.Vote,name="Vote"),
+    
     
 ]
 if settings.DEBUG:

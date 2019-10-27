@@ -1,0 +1,42 @@
+{%extends 'all-projects/base.html'%} 
+{% block content %}
+<style>
+.hr{ 
+    display: block;
+    margin-left:200px;
+    margin-right: 200px;
+    border-style: inset;
+    border-width: 1px;
+  } 
+  footer {
+    /* position: fixed; */
+    background-color:transparent;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color:rgb(8, 8, 8);
+    text-align: center;
+    font-size: 10px;
+  }
+</style>
+<div class="container" style="background-color:rgba(14, 255, 175, 0.2);"><br>
+  <h1 style="font-family: 'Mansalva', cursive;text-align: center;color: rgb(1, 122, 92);">Searched Category</h1><br><br>
+    {% if searchs %}
+      <h2> {{ searchs|length }}  {{backend}}</h2>
+    {% else %}
+      <h2> {{backend}}</h2>
+    {% endif %}<br><br>
+    <div class="row">
+      {% if searchs %}
+      {% for cate in searchs %}
+      
+  {% endfor %}
+  {% endif %}
+</div></div><br><br><br><br><br>
+<div>
+    <footer>
+        <hr class="hr">
+        <p>@2019 by ____ProDevloper.Proudly Created</p>
+    </footer>
+</div>
+{% endblock %} 

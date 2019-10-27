@@ -9,11 +9,6 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
  </head>
  <script>
- $(function() {
-    $('.chart').easyPieChart({
-    });
-});
-
 $(document).ready(function(){
 
     var project_id = $("#project_id").val()
@@ -150,7 +145,7 @@ $(document).ready(function(){
     <div class="col-md-3"></div>
     <div class="col-md-4"><h2 class="project-details-heading">Rate this site</h2>
         <hr>
-        <form action="" method="POST" enctype="multipart/form-data" id="ratingform">
+        <form action="{% url 'Vote' %}" method="POST" enctype="multipart/form-data" id="ratingform">
             {%csrf_token%}
     
             {% bootstrap_form form%}
@@ -187,7 +182,7 @@ $(document).ready(function(){
             {% for rating in project_rating %}
             <tr class="rate{{rating.user.id}}">
                 <th scope="row">{{ forloop.counter }}</th>
-                <td class="t-user"><img src="{{ rating.user.profile.profile_pic.url }}" alt="profile picture"
+                <td class="t-user"><img src="{{ rating.user.profile.image.url }}" alt="profile picture"
                         class="rounded-circle custom-display border border-danger">{{ rating.user.username }}
                 </td>
                 <td class="t-design">{{ rating.design }}</td>

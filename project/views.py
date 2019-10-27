@@ -101,3 +101,34 @@ def ProjectVote(request,pk):
         "design_percent":design_percent
     }
     return render(request, 'all-projects/projectvote.html', context)    
+
+@login_required(login_url='/accounts/login/')
+def Vote(request,pk):
+    project = Foto.objects.get(id=pk)
+    current_user = request.user
+    project_rating = Voting.objects.filter(project=project).order_by("pk")
+    current_user_id = request.user.id
+    project_rated = Voting.objects.filter(user=current_user_id)
+    if request.method == 'POST':
+        form = VotingForm(request.POST,request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.user= current_user
+            project.save()
+        return redirect('projectvote')
+    else:
+        form = VotingForm()
+    return render(request, 'all-projects/projectvote.html',{"project":project,"form":form})
+
+def search_results(request):
+    if 'searchs' in request.GET and request.GET['searchs']:
+        search = request.GET.get("searchs")
+        searched = Foto.searchs(search)
+        
+        backend = f"{search}"
+        
+        return render(request, 'all-projects/search.html',{"backend":backend,"searchs":searched})
+    
+    else:
+        backend = "You haven't searched for any term"
+        return render(request, 'all-projects/search.html',{"backend":backend})    

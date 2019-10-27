@@ -59,7 +59,11 @@ class Foto(models.Model):
     def update_pic(cls,id):
         imaje = cls.objects.filter(id=id).update(id=id)
         return imaje          
-
+ 
+    @classmethod
+    def searchs(cls,search):
+        sitename = cls.objects.filter(sitename__icontains=search)
+        return sitename 
 
 class Voting(models.Model):
     design = models.IntegerField(choices=[(i,i) for i in range(1,11)])
