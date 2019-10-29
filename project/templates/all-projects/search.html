@@ -19,8 +19,7 @@
     font-size: 10px;
   }
 </style>
-<div class="container" style="background-color:rgba(14, 255, 175, 0.2);"><br>
-  <h1 style="font-family: 'Mansalva', cursive;text-align: center;color: rgb(1, 122, 92);">Searched Category</h1><br><br>
+<div class="container" ><br>
     {% if searchs %}
       <h2> {{ searchs|length }}  {{backend}}</h2>
     {% else %}
@@ -29,10 +28,26 @@
     <div class="row">
       {% if searchs %}
       {% for cate in searchs %}
-      
+      <div class="rating-page above">
+        <img id="overla" src="{{cate.image.url}}" style="height: 300px; width: 60%; margin-left:270px">
+    </div>
+    <br><br><br>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-6" style="margin-left:10px;">
+                <h2>{{ cate.sitename }}</h2><br>
+            
+                <h2 class="project-details-heading">Project Details</h2>
+                <p>{{ cate.description }}</p><br>
+            
+                <h2 class="project-details-heading">Visit The Site</h2>
+                <a href="{{project.url}}"><button class="btn btn-primary">Visit Site</button></a><br>
+        </div>
+        <div class="col-md-5"></div>
   {% endfor %}
   {% endif %}
-</div></div><br><br><br><br><br>
+</div></div></div></div><br><br><br><br><br>
 <div>
     <footer>
         <hr class="hr">

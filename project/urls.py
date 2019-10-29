@@ -11,8 +11,7 @@ urlpatterns=[
     url(r'^project/$', views.project, name='project'),
     url(r'^ProjectVote/(?P<pk>\d+)$',views.ProjectVote,name="ProjectVote"),
     url(r'^Vote/$',views.Vote,name="Vote"),
-    
-    
+    url(r'^search/$',views.search_results,name="search_results"), 
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
