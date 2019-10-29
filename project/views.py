@@ -4,6 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import ProfileForm,FotoForm,VotingForm
 from .models import Profile,Foto,Voting
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,FotoSerializer
 
 
 def page(request):
@@ -12,7 +15,11 @@ def page(request):
     return render(request,'all-projects/index.html',{'images':images,'profile':profile})
 
 def submit(request):
-    return render(request,'all-projects/submit.html',{})    
+    return render(request,'all-projects/submit.html',{})  
+
+@login_required(login_url='/accounts/login/')
+def api(request):
+    return render(request,'all-projects/api.html',{})      
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
@@ -131,4 +138,16 @@ def search_results(request):
     
     else:
         backend = "You haven't searched for any term"
-        return render(request, 'all-projects/search.html',{"backend":backend})    
+        return render(request, 'all-projects/search.html',{"backend":backend}) 
+
+class Profiles(APIView):
+    def get(self, request, format=None):
+        profi = Profile.objects.all()
+        serial = ProfileSerializer(profi, many=True)
+        return Response(serial.data)           
+
+class Fotos(APIView):
+    def get(self, request, format=None):
+        pic = Foto.objects.all()
+        serializers = FotoSerializer(pic, many=True)
+        return Response(serializers.data)        
