@@ -6,7 +6,7 @@ https://github.com/Belie06Loryn
 ## Description
 This project allows people to submit their websites and have them reviewed based on design,usability and content.
 ### Set-up and Installation
-- Clone the Repo using this command: cd git clone  [] $$ cd []
+- Clone the Repo using this command: cd git clone  [https://github.com/Belie06Loryn/Project_Post.git] $$ cd [Project_Post]
 - Install python 3.6
 - Install Python 3.6.5 2.Django 1.11
 - Create Environment [python3.6 -m venv --without-pip virtual] and activate   it [source virtual/bin/activate]
