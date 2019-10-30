@@ -4,7 +4,7 @@
 https://github.com/Belie06Loryn
 
 ## Description
-
+This project allows people to submit their websites and have them reviewed based on design,usability and content.
 ### Set-up and Installation
 - Clone the Repo using this command: cd git clone  [] $$ cd []
 - Install python 3.6
