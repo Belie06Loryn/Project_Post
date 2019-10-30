@@ -15,7 +15,11 @@ This project allows people to submit their websites and have them reviewed based
 - Access the application through `http://127.0.0.1:8000/`
 
 ## BDD
-
+| GENERAL BEHAVIOUR | INPUT | OUTPUT|
+|:------------------|:--------|:-----------|
+|User wants to posts a project| User visits and posts the website |displays the site on the site|
+|User wants to view the website descriptions|They click on the website image |Website descriptions are displayed|
+|User wants to vote on a project| They navigate to the project details page and vote on the form|Votes are shown and displayed|
 ## Known bugs
 No known errors if found drop a message on my profile
 
